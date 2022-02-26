@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import API from 'API'
+import { useState, useEffect } from 'react'
+import apiSettings from '../API'
 
 const initialState = {
   page: 0,
@@ -18,7 +18,7 @@ export const useHomeFetch = () => {
       setError(false)
       setIsLoading(true)
 
-      const movies = await API.fetchMovies(searchTerm, page)
+      const movies = await apiSettings.fetchMovies(searchTerm, page)
 
       setState(prev => ({
         ...movies,
