@@ -13,6 +13,7 @@ export const useHomeFetch = () => {
   const [state, setState] = useState(initialState)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [isLoadingMore, setIsLoadingMore] = useState(false)
 
 
   const fetchMovies = async (page, searchTerm = '') => {
@@ -40,5 +41,13 @@ export const useHomeFetch = () => {
     fetchMovies(1, searchTerm)
   }, [searchTerm])
 
-  return { state, isLoading, error, searchTerm, setSearchTerm }
+  //Load More 
+  useEffect(() => {
+    if (!isLoadingMore) return;
+
+    fetchMovies(state.page + 1, searchTerm)
+    setIsLoadingMore(false) //this will take the loading more function to its preset state.
+  }, [isLoadingMore, searchTerm, state.page])
+
+  return { state, isLoading, error, searchTerm, setSearchTerm, setIsLoadingMore }
 }
