@@ -22,7 +22,7 @@ export const Content = styled.div`
     padding-right: 10px;
 
     @media screen and (max-width: 768px) {
-      font-size: 16px;
+      font-size: var(--fontSmall)
     }
   }
 `;
