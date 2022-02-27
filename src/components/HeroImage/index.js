@@ -1,10 +1,11 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 //styles
 import { Wrapper, Content, Text } from './HeroImage.styles'
 
 const HeroImage = ({ image, title, text }) => ( //we destructured our props (props)=>({props.elements})
-  <Wrapper image={image}>
+  <Wrapper image={image} >
 
     <Content >
 
@@ -16,7 +17,7 @@ const HeroImage = ({ image, title, text }) => ( //we destructured our props (pro
 
     </Content>
 
-  </Wrapper>
+  </Wrapper >
 )
 
 HeroImage.propTypes = {

@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 //helpers file
 import { calcTime, convertMoney } from '../../helpers'

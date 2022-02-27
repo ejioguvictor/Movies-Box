@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config'
@@ -13,6 +13,7 @@ import Button from './Button';
 
 //Hook
 import { useHomeFetch } from '../Hooks/useHomeFetch';
+
 //Image
 import NoImage from '../images/no_image.jpg'
 
@@ -24,17 +25,22 @@ const Home = () => {
 
   if (error) return <div>Something went wrong...</div>
 
-  console.log(state)
+  console.log('xxxxxx', setSearchTerm)
+  console.log('yyyyyyy', state.results[0])
 
+  if (error) return <div>Something went wrong...</div>
+
+  //take off searchTerm
   return (
 
     <div>
-      {!setSearchTerm && state.results[0] ?
+      {!searchTerm && state.results[0] ? (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
           title={state.results[0].original_title}
           text={state.results[0].overview}
         />
+      )
         :
         null
       }
@@ -42,7 +48,7 @@ const Home = () => {
       <SearchBar setSearchTerm={setSearchTerm} />
 
       <Grid header={searchTerm ? 'Search Result' : 'Popular Movies'}>
-        {state.results.map(movie => (
+        {state.results.map((movie) => (
 
           <Thumb
             key={movie.id}

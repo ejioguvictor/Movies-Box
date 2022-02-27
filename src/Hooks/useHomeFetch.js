@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import apiSettings from '../API'
+//helpers
+import { isPersistedState } from '../helpers'
 
 const initialState = {
   page: 0,
@@ -23,7 +25,7 @@ export const useHomeFetch = () => {
 
       const movies = await apiSettings.fetchMovies(searchTerm, page)
 
-      setState(prev => ({
+      setState((prev) => ({
         ...movies,
         results:
           page > 1 ? [...prev.results, ...movies.results] : [...movies.results]
@@ -37,6 +39,17 @@ export const useHomeFetch = () => {
 
   //initial rendering and search
   useEffect(() => {
+    if (!searchTerm) {
+      const sessionState = isPersistedState('homeState')
+
+      if (sessionState) {
+        console.log('Fetching data from sessionStorage')
+        setState(sessionState)
+        return;
+      }
+    }
+
+    console.log('Fetching from API')
     setState(initialState)
     fetchMovies(1, searchTerm)
   }, [searchTerm])
@@ -48,6 +61,11 @@ export const useHomeFetch = () => {
     fetchMovies(state.page + 1, searchTerm)
     setIsLoadingMore(false) //this will take the loading more function to its preset state.
   }, [isLoadingMore, searchTerm, state.page])
+
+  //writing to sessionStorage
+  useEffect(() => {
+    if (!searchTerm) sessionStorage.setItem('homeState', JSON.stringify(state))
+  }, [searchTerm, state])
 
   return { state, isLoading, error, searchTerm, setSearchTerm, setIsLoadingMore }
 }
