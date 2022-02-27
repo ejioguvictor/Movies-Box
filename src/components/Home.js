@@ -25,10 +25,7 @@ const Home = () => {
 
   if (error) return <div>Something went wrong...</div>
 
-  console.log('xxxxxx', setSearchTerm)
-  console.log('yyyyyyy', state.results[0])
-
-  if (error) return <div>Something went wrong...</div>
+  console.log(state)
 
   //take off searchTerm
   return (
